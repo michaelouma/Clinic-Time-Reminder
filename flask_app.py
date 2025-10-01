@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 
 app = Flask(__name__)
-excel_file = 'patients.xlsx'
+excel_file = 'Book1.xlsx'
 
 # Homepage: search and display patients
 @app.route('/')
@@ -42,7 +42,7 @@ def add_patient():
             'Status': 'Pending',
             'Clinic Type': clinic_type
         }
-        df = df.append(new_row, ignore_index=True)
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
         df.to_excel(excel_file, index=False)
         return redirect('/')
     return render_template('add.html')

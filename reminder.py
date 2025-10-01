@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 
-excel_file = 'patients.xlsx'
+excel_file = 'Book1.xlsx'
 df = pd.read_excel(excel_file)
 
 today = datetime.today().date()
@@ -23,9 +23,9 @@ if not due_patients.empty:
     message_body += "\nPlease follow up as needed.\n\nRegards,\nClinic System"
 
     # Email settings
-    sender_email = "youremail@gmail.com"
-    receiver_email = "clinician@example.com"
-    password = "your_email_app_password"  # Gmail requires App Password
+    sender_email = "moketchus12@gmail.com"
+    receiver_email = "michael.ouma2021@students.jkuat.ac.ke"
+    password = "pmhf wifs ovmo eiaf"  # Gmail requires App Password
 
     msg = MIMEText(message_body)
     msg['Subject'] = "Clinic Reminders for Tomorrow"
