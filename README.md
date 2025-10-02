@@ -37,6 +37,8 @@ The Excel file (`Book1.xlsx`) should have at least the following columns:
 - Libraries:  
   ```bash
   pip install pandas openpyxl
+
+##📌 Example Email
 Subject: Clinic Reminders for Tomorrow
 
 Dear Clinician,
