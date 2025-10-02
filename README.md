@@ -15,8 +15,8 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📂 Project Structure
-├── Book1.xlsx # Excel file containing appointment data
-├── reminder_script.py # Main Python script
+├── Book1.xlsx # Excel file containing appointment data  
+├── reminder_script.py # Main Python script  
 └── README.md # Project documentation
 
 
