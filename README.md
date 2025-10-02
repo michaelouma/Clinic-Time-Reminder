@@ -45,8 +45,8 @@ Dear Clinician,
 
 The following patients have appointments tomorrow:
 
-John Doe - 2025-10-03 (Dental)
-Jane Smith - 2025-10-03 (General)
+John James - 2025-10-03 (HTN)  
+Jane Jack - 2025-10-03 (DM)
 
 Please follow up as needed.
 
