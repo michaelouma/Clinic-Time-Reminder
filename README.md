@@ -15,3 +15,39 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📂 Project Structure
+├── Book1.xlsx # Excel file containing appointment data
+├── reminder_script.py # Main Python script
+└── README.md # Project documentation
+
+
+---
+
+## 📊 Excel File Format
+The Excel file (`Book1.xlsx`) should have at least the following columns:
+
+- **Patient Name** → Name of the patient  
+- **Next Appointment** → Date of the patient’s next appointment (must be a valid date)  
+- **Clinic Type** → Type of clinic (e.g., Dental, General)  
+- **Status** → Current reminder status (`Pending`, `Reminded`)  
+
+---
+
+## ⚙️ Requirements
+- Python 3.8+  
+- Libraries:  
+  ```bash
+  pip install pandas openpyxl
+Subject: Clinic Reminders for Tomorrow
+
+Dear Clinician,
+
+The following patients have appointments tomorrow:
+
+John Doe - 2025-10-03 (Dental)
+Jane Smith - 2025-10-03 (General)
+
+Please follow up as needed.
+
+Regards,
+Clinic System
+
