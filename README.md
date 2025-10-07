@@ -34,7 +34,9 @@ The Excel file (`Book1.xlsx`) should have at least the following columns:
 
 ## ⚙️ Requirements
 - Python 3.8+  
-- Libraries:  
+- Libraries:
+  . Flask
+  . Pandas e.t.c  
   ```bash
   pip install pandas openpyxl
 
