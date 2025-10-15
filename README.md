@@ -11,6 +11,7 @@ This project is a **Python automation script** that sends **email reminders to c
 - Updates the appointment status (`Pending` → `Reminded`) to track notifications.  
 - Resets `Reminded` status back to `Pending` for future appointments.  
 - Saves the updated appointment data back to the Excel file.
+- The app also allows new patient registeration and updating the patient details to excel.
 
 ---
 
