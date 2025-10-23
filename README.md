@@ -41,6 +41,10 @@ The Excel file (`Book1.xlsx`) should have at least the following columns:
   ```bash
   pip install pandas openpyxl
 
+## ⏰ Automatic Execution (Windows Task Scheduler)
+
+The **Patient Time Reminder** script can run automatically every day on Windows using Task Scheduler.
+
 ## 📌 Example Email
 Subject: Clinic Reminders for Tomorrow
 
