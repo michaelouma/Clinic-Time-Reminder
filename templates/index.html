@@ -1,39 +1,57 @@
-<!doctype html>
-<html>
-<head>
-    <title>Clinic Patients</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<h1>Patient List</h1>
+{% extends "base.html" %}
+{% block content %}
+<h2>Patients</h2>
 
-<form method="get" action="/">
-    <input type="text" name="search" placeholder="Search patient">
-    <input type="submit" value="Search">
+<form method="get" action="{{ url_for('index') }}">
+    <input type="text" name="search" placeholder="Search patient" value="{{ search }}">
+    <select name="clinic">
+        <option value="">All clinic types</option>
+        {% for ct in clinic_types %}
+            <option value="{{ ct.id }}" {% if clinic_filter|int == ct.id %}selected{% endif %}>{{ ct.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Filter">
 </form>
 
 <table>
 <tr>
-    <th>Name</th><th>Phone</th><th>Next Appointment</th><th>Status</th><th>Clinic Type</th><th>Update</th>
+    <th>Name</th><th>Phone</th><th>Next Appointment</th><th>Status</th><th>Clinic Type(s)</th><th>Actions</th>
 </tr>
-{% for patient in patients %}
+{% for p in patients %}
 <tr>
-    <td>{{ patient['Patient Name'] }}</td>
-    <td>{{ patient['Phone'] }}</td>
-    <td>{{ patient['Next Appointment'].date() }}</td>
-    <td>{{ patient['Status'] }}</td>
-    <td>{{ patient['Clinic Type'] }}</td>
+    <td>{{ p.name }}</td>
+    <td>{{ p.phone }}</td>
     <td>
-        <form method="post" action="/update">
-            <input type="hidden" name="name" value="{{ patient['Patient Name'] }}">
-            <input type="date" name="next_appointment" required>
-            <input type="submit" value="Update">
+        {% if p.next_appointment %}
+            {{ p.next_appointment.strftime('%Y-%m-%d %H:%M') }}
+        {% else %}
+            -
+        {% endif %}
+    </td>
+    <td>{{ p.status }}</td>
+    <td>{{ p.clinic_types_str() }}</td>
+    <td>
+        <form method="post" action="{{ url_for('update_tca', patient_id=p.id) }}" style="display:inline-block;">
+            <input type="datetime-local" name="next_appointment" required>
+            <input type="submit" value="Update TCA">
+        </form>
+        <a href="{{ url_for('edit_patient', patient_id=p.id) }}">Edit</a>
+
+        <form method="post" action="{{ url_for('delete_patient', patient_id=p.id) }}" style="display:inline-block;" onsubmit="return confirm('Delete this patient?');">
+            <input type="submit" value="Delete">
         </form>
     </td>
 </tr>
 {% endfor %}
 </table>
-<br>
-<a href="/add">Add New Patient</a>
-</body>
-</html>
+
+<div class="pagination">
+    <p>Showing page {{ page }} — total records: {{ total }}</p>
+    {% if page > 1 %}
+        <a href="{{ url_for('index', page=page-1, search=search, clinic=clinic_filter) }}">Prev</a>
+    {% endif %}
+    {% if total > page * per_page %}
+        <a href="{{ url_for('index', page=page+1, search=search, clinic=clinic_filter) }}">Next</a>
+    {% endif %}
+</div>
+{% endblock %}

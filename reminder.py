@@ -1,45 +1,58 @@
-import pandas as pd
+import os
 import smtplib
 from email.mime.text import MIMEText
-from datetime import datetime, timedelta
+from datetime import date, timedelta
+from dotenv import load_dotenv
+from app import create_app
+from models import db, Patient
 
-excel_file = 'Book1.xlsx'
-df = pd.read_excel(excel_file)
+load_dotenv()
+app = create_app()
 
-today = datetime.today().date()
-tomorrow = today + timedelta(days=1)
+SENDER_EMAIL = os.getenv('GMAIL_SENDER_EMAIL')
+RECEIVER_EMAIL = os.getenv('CLINICIAN_RECEIVER_EMAIL')
+PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
 
-# Reset Status for future appointments
-df.loc[(df['Next Appointment'].dt.date > today) & (df['Status'] == 'Reminded'), 'Status'] = 'Pending'
+def send_daily_reminder():
+    with app.app_context():
+        tomorrow = date.today() + timedelta(days=1)
+        patients = Patient.query.filter(
+            Patient.next_appointment.isnot(None)
+        ).all()
 
-# Filter patients due tomorrow
-due_patients = df[(df['Next Appointment'].dt.date == tomorrow) & (df['Status'] == 'Pending')]
+        due = []
+        for p in patients:
+            if p.next_appointment.date() == tomorrow and p.status == 'Pending':
+                due.append(p)
 
-if not due_patients.empty:
-    # Build email message
-    message_body = "Dear Clinician,\n\nThe following patients have appointments tomorrow:\n\n"
-    for index, row in due_patients.iterrows():
-        message_body += f"{row['Patient Name']} - {row['Next Appointment'].date()} ({row['Clinic Type']})\n"
-    message_body += "\nPlease follow up as needed.\n\nRegards,\nClinic System"
+        if not due:
+            print(f"No patients due on {tomorrow.isoformat()}")
+            return
 
-    # Email settings
-    sender_email = "moketchus12@gmail.com"
-    receiver_email = "michael.ouma2021@students.jkuat.ac.ke"
-    password = "pmhf wifs ovmo eiaf"  # Gmail requires App Password
+        body = f"Dear Clinician,\n\nThe following {len(due)} patients have appointments on {tomorrow.strftime('%Y-%m-%d')}:\n\n"
+        for p in due:
+            time_part = p.next_appointment.time().strftime('%H:%M') if p.next_appointment.time() else "N/A"
+            body += f"- {p.name} at {time_part} ({p.clinic_types_str()}) - Phone: {p.phone}\n"
 
-    msg = MIMEText(message_body)
-    msg['Subject'] = "Clinic Reminders for Tomorrow"
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
+        body += "\nRegards,\nClinic System"
 
-    # Send email
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
-    
-    # Update Status → Reminded
-    df.loc[due_patients.index, 'Status'] = 'Reminded'
+        msg = MIMEText(body)
+        msg['Subject'] = f"Daily Reminder: {len(due)} Appointments on {tomorrow.strftime('%Y-%m-%d')}"
+        msg['From'] = SENDER_EMAIL
+        msg['To'] = RECEIVER_EMAIL
 
-# Save Excel
-df.to_excel(excel_file, index=False)
-print("Reminder script executed and statuses updated.")
+        try:
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+                server.login(SENDER_EMAIL, PASSWORD)
+                server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
+
+            # update statuses
+            for p in due:
+                p.status = 'Reminded'
+            db.session.commit()
+            print(f"Sent reminder for {len(due)} patients.")
+        except Exception as e:
+            print("Error sending email:", e)
+
+if __name__ == '__main__':
+    send_daily_reminder()

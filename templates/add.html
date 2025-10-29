@@ -1,23 +1,17 @@
-<!doctype html>
-<html>
-<head>
-    <title>Add Patient</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<h1>Add New Patient</h1>
+{% extends "base.html" %}
+{% block content %}
+<h2>Add New Patient</h2>
 
-<form method="post" action="/add">
-    Name:<br>
-    <input type="text" name="name" required><br>
-    Phone:<br>
-    <input type="text" name="phone" required><br>
-    Next Appointment:<br>
-    <input type="date" name="next_appointment" required><br>
-    Clinic Type:<br>
-    <input type="text" name="clinic_type" required><br><br>
+<form method="post" action="{{ url_for('add_patient') }}">
+    <label>Name:<br><input type="text" name="name" required></label><br>
+    <label>Phone:<br><input type="text" name="phone"></label><br>
+    <label>Next Appointment:<br><input type="datetime-local" name="next_appointment"></label><br>
+    <label>Clinic Type(s):<br>
+        {% for ct in clinic_types %}
+            <input type="checkbox" name="clinic_type" value="{{ ct.id }}"> {{ ct.name }}<br>
+        {% endfor %}
+    </label><br>
     <input type="submit" value="Add Patient">
 </form>
-<a href="/">Back to Patient List</a>
-</body>
-</html>
+{% endblock %}
+
