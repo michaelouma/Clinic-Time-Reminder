@@ -26,7 +26,8 @@ This project is a **Python automation script** that sends **email reminders to c
 ## 📊 Excel File Format
 The Excel file (`Book1.xlsx`) should have at least the following columns:
 
-- **Patient Name** → Name of the patient  
+- **Patient Name** → Name of the patient
+- **Patient Contact** → Telephone number for the patient 
 - **Next Appointment** → Date of the patient’s next appointment (must be a valid date)  
 - **Clinic Type** → Type of clinic (e.g., Dental, General)  
 - **Status** → Current reminder status (`Pending`, `Reminded`)  
@@ -52,8 +53,8 @@ Dear Clinician,
 
 The following patients have appointments tomorrow:
 
-John James - 2025-10-03 (HTN)  
-Jane Jack - 2025-10-03 (DM)
+John James- 0712345678 - 2025-10-03 (HTN)  
+Jane Jack - 0787654321 - 2025-10-03 (DM)
 
 Please follow up as needed.
 
