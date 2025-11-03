@@ -22,7 +22,8 @@ def create_app():
         page = int(request.args.get('page', 1))
         per_page = 10
 
-        query = Patient.query.order_by(Patient.next_appointment.asc().nulls_last(), Patient.name.asc())
+        query = Patient.query.order_by(Patient.next_appointment.asc(), Patient.name.asc())
+
 
         if search:
             query = query.filter(Patient.name.ilike(f'%{search}%'))
