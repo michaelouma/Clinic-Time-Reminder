@@ -23,7 +23,7 @@ This project is a **Python automation script** that sends **email reminders to c
 
 ---
 
-## 📊 Excel File Format
+## 📊 Creating a Database
 The Excel file (`Book1.xlsx`) should have at least the following columns:
 
 - **Patient Name** → Name of the patient
