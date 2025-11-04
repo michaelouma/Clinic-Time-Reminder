@@ -24,7 +24,7 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📊 Creating a Database (clinics)
-Here a database called clinic is created to capture and store all patients details:
+Here a database called clinic (in MariaDB) is created to capture and store all patients details:
 
 - **Patient Name** → Name of the patient
 - **Patient Contact** → Telephone number for the patient 
