@@ -5,7 +5,7 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## ✨ Features
-- Reads patient appointment data from an Excel file using **pandas**.  
+- Reads patient appointment data from MySQL database using **pandas/SQL Alchemy**.  
 - Identifies patients with appointments scheduled **for tomorrow**.  
 - Sends a reminder email to the clinician with patient details (name, date, clinic type).  
 - Updates the appointment status (`Pending` → `Reminded`) to track notifications.  
@@ -16,7 +16,7 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📂 Project Structure
-├── Book1.xlsx # Excel file containing appointment data  
+├── MySQL database file containing appointment data  
 ├── reminder_script.py # Main Python script  
 └── README.md # Project documentation
 
