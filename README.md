@@ -1,11 +1,11 @@
 # Clinic Appointment Reminder Automation
 
-This project is a **Python automation script** that sends **email reminders to clinicians** about patients who have upcoming appointments. It reads appointment data from an Excel file, identifies patients due **tomorrow**, and sends an automated email listing those patients. It also updates the appointment status in the Excel file to ensure no duplicate reminders.
+This project is a **Python automation script** that sends **email reminders to clinicians** about patients who have upcoming appointments. It reads appointment data from an MySQL database, identifies patients due **tomorrow**, and sends an automated email listing those patients. It also updates the appointment status in the Excel file to ensure no duplicate reminders.
 
 ---
 
 ## ✨ Features
-- Reads patient appointment data from an Excel file using **pandas**.  
+- Reads patient appointment data from MySQL database using **pandas/SQL Alchemy**.  
 - Identifies patients with appointments scheduled **for tomorrow**.  
 - Sends a reminder email to the clinician with patient details (name, date, clinic type).  
 - Updates the appointment status (`Pending` → `Reminded`) to track notifications.  
@@ -16,7 +16,7 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📂 Project Structure
-├── Book1.xlsx # Excel file containing appointment data  
+├── MySQL database file containing appointment data  
 ├── reminder_script.py # Main Python script  
 └── README.md # Project documentation
 
@@ -24,7 +24,7 @@ This project is a **Python automation script** that sends **email reminders to c
 ---
 
 ## 📊 Creating a Database (clinics)
-Here a database called clinic is created to capture and store all patients details:
+Here a database called clinic (in MariaDB) is created to capture and store all patients details:
 
 - **Patient Name** → Name of the patient
 - **Patient Contact** → Telephone number for the patient 
