@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url("image/image2.jpeg");
+    background-image: url();
     background-size: cover;        /* make the image cover the entire page */
     background-position: center;   /* center the image */
     background-repeat: no-repeat;  /* prevent tiling */
