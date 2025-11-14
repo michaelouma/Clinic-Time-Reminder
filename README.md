@@ -1,6 +1,6 @@
 # Clinic Appointment Reminder Automation
 
-This project is a **Python automation script** that sends **email reminders to clinicians** about patients who have upcoming appointments. It reads appointment data from an MySQL database, identifies patients due **tomorrow**, and sends an automated email listing those patients. It also updates the appointment status in the Excel file to ensure no duplicate reminders.
+This project is a **Python automation script** that sends **email reminders to clinicians** about Non Communicable Disease patients who have upcoming appointments. It reads appointment data from an MySQL database, identifies patients due **tomorrow**, and sends an automated email listing those patients. It also updates the appointment status in the Excel file to ensure no duplicate reminders.
 
 ---
 
